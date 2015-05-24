@@ -12,6 +12,11 @@ namespace Codellica.Lib.DAL.Model
         {
         }
 
+        public NorthwindModel(string connectionString)
+            : base(connectionString)
+        {
+        }
+
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CustomerDemographic> CustomerDemographics { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }

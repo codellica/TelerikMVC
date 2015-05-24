@@ -1,0 +1,33 @@
+﻿@model CodellicaTelerikMVC.ViewModels.GridPart1ViewModel
+
+
+    <hgroup class="title">
+        <h2>@ViewBag.Title</h2>
+    </hgroup>
+
+
+    <div>
+        @(Html.Kendo().Grid(Model.Categories)
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.CategoryName).Width(140);
+            columns.Bound(c => c.Description).Width(190);
+            columns.Bound(c => c.Picture);
+        })
+        .HtmlAttributes(new { style = "height: 380px;" })
+        .Scrollable()
+        .Groupable()
+        .Sortable()
+        .Pageable(pageable => pageable
+            .Refresh(true)
+            .PageSizes(true)
+            .ButtonCount(5))
+        .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(20)
+                .ServerOperation(false)
+             )
+        )
+    </div>
+

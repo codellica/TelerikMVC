@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.IO;
 
 namespace CodellicaTelerikMVC
 {
@@ -16,6 +17,9 @@ namespace CodellicaTelerikMVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            AppDomain.CurrentDomain.SetData("DataDirectory", 
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin"));
         }
     }
 }
