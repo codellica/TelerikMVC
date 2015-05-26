@@ -12,20 +12,19 @@
         .Columns(columns =>
         {
             columns.Bound(c => c.CategoryName).Width(140);
-            columns.Bound(c => c.Description).Width(190);
-            columns.Bound(c => c.Picture);
+            columns.Bound(c => c.Description).Width(450);
+            columns.Bound(c => c.Image64).ClientTemplate("<img src='data:image/jpeg;base64,#=Image64#' />").Title("Picture");
         })
         .HtmlAttributes(new { style = "height: 380px;" })
         .Scrollable()
         .Groupable()
         .Sortable()
-        .Pageable(pageable => pageable
-            .Refresh(true)
-            .PageSizes(true)
+        .Pageable(pageable => pageable            
+            .PageSizes(true)                        
             .ButtonCount(5))
         .DataSource(dataSource => dataSource
                 .Ajax()
-                .PageSize(20)
+                .PageSize(5)
                 .ServerOperation(false)
              )
         )
