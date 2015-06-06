@@ -10,7 +10,7 @@ namespace Codellica.Lib.DAL.UnitsOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Category> Categories { get; }
+        ICategoryRepository Categories { get; }
         IRepository<Customer> Customers { get; }
         IRepository<Product> Products { get; }
         void Commit();

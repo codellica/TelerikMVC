@@ -9,12 +9,17 @@ using System.Threading.Tasks;
 
 namespace Codellica.Lib.DAL.Repositories
 {
-    public class CategorySqlRepository : SqlRepository<Category>
+    public class CategorySqlRepository : SqlRepository<Category>, ICategoryRepository
     {
         public CategorySqlRepository(DbContext context)
             : base(context)
         {
 
+        }
+
+        public IQueryable<Category> GetCategoriesWithProducts()
+        {
+            return _set.Include(e => e.Products);
         }
     }
 }

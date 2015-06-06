@@ -7,11 +7,11 @@ using System.Web;
 
 namespace CodellicaTelerikMVC.ViewModels
 {
-    public class GridPart1ViewModel
+    public class GridPart2ViewModel
     {
         public ICollection<CategoryViewModel> Categories { get; set;}
 
-        public GridPart1ViewModel()
+        public GridPart2ViewModel()
         {
             Categories = new HashSet<CategoryViewModel>();
         }

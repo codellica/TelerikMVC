@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace CodellicaTelerikMVC.Controllers
 {
@@ -43,6 +46,33 @@ namespace CodellicaTelerikMVC.Controllers
 
             return View(model);
         }
+
+        public ActionResult GridPart2()
+        {
+            ViewBag.Title = "Grid Part II";
+            return View();
+        }
+
+        public ActionResult GetCategories([DataSourceRequest]DataSourceRequest request)
+        {
+            var categories = _uow.Categories.All.ToList();
+
+            ICollection<CategoryViewModel> model = new HashSet<CategoryViewModel>();
+
+            foreach (var category in categories)
+            {
+                model.Add(new CategoryViewModel
+                {
+                    CategoryID = category.CategoryID,
+                    CategoryName = category.CategoryName,
+                    Description = category.Description,
+                    Picture = category.Picture
+                });
+            }
+
+            return Json(model.ToDataSourceResult(request));
+        }
+
         protected override void Dispose(bool disposing)
         {
             _uow.Dispose();

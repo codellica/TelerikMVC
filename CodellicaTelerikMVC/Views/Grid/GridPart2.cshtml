@@ -1,0 +1,33 @@
+﻿<hgroup class="title">
+    <h2>@ViewBag.Title</h2>
+</hgroup>
+
+<div>
+    @(Html.Kendo().Grid<CodellicaTelerikMVC.ViewModels.CategoryViewModel>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.CategoryName).Width(140);
+            columns.Bound(c => c.Description).Width(450);
+            columns.Bound(c => c.Image64).ClientTemplate("<img src='data:image/jpeg;base64,#=Image64#' />").Title("Picture");
+        })
+        .HtmlAttributes(new { style = "height: 380px;" })
+        .Scrollable()
+        .Groupable()
+        .Sortable()
+        .Pageable(pageable => pageable
+            .PageSizes(true)
+            .ButtonCount(5))        
+        .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("GetCategories", "Grid"))
+             )
+    )
+</div>
+
+
+
+
+
+
+

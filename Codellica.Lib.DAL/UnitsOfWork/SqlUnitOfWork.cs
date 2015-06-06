@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Codellica.Lib.DAL.Model;
 using Codellica.Lib.DAL.Repositories.Base;
 using System.Configuration;
+using Codellica.Lib.DAL.Repositories;
 
 namespace Codellica.Lib.DAL.UnitsOfWork
 {
@@ -17,14 +18,14 @@ namespace Codellica.Lib.DAL.UnitsOfWork
         private NorthwindModel _ctx;
 
         #region [-- Repositories --]
-        private IRepository<Category> _Categories;
-        public IRepository<Category> Categories
+        private ICategoryRepository _Categories;
+        public ICategoryRepository Categories
         {
             get
             {
                 if (_Categories == null)
                 {
-                    _Categories = new SqlRepository<Category>(_ctx);
+                    _Categories = new CategorySqlRepository(_ctx);
                 }
                 return _Categories;
             }
