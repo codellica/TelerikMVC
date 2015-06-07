@@ -61,13 +61,21 @@ namespace CodellicaTelerikMVC.Controllers
 
             foreach (var category in categories)
             {
-                model.Add(new CategoryViewModel
-                {
-                    CategoryID = category.CategoryID,
-                    CategoryName = category.CategoryName,
-                    Description = category.Description,
-                    Picture = category.Picture
-                });
+                model.Add(new CategoryViewModel(category));
+            }
+
+            return Json(model.ToDataSourceResult(request));
+        }
+
+        public ActionResult GetCategoryProducts([DataSourceRequest]DataSourceRequest request, int categoryID)
+        {
+            var products = _uow.Products.All.Where(p => p.CategoryID == categoryID);
+
+            ICollection<ProductViewModel> model = new HashSet<ProductViewModel>();
+
+            foreach (var product in products)
+            {
+                model.Add(new ProductViewModel(product));
             }
 
             return Json(model.ToDataSourceResult(request));

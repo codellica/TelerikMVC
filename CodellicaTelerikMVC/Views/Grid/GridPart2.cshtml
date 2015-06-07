@@ -2,6 +2,28 @@
     <h2>@ViewBag.Title</h2>
 </hgroup>
 
+
+<script id="detail-template" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<CodellicaTelerikMVC.ViewModels.ProductViewModel>()
+            .Name("grid_#=CategoryID#")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.ProductName).Width("30%");
+                columns.Bound(c => c.QuantityPerUnit).Width("30%");
+                columns.Bound(c => c.UnitPrice).Format("{0:c}");
+                columns.Bound(c => c.UnitsInStock);
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(5)
+                .Read(read => read.Action("GetCategoryProducts", "Grid", new { categoryID = "#=CategoryID#" }))
+            )
+            .Pageable()
+            .Sortable()
+            .ToClientTemplate()
+    )
+</script>
+
 <div>
     @(Html.Kendo().Grid<CodellicaTelerikMVC.ViewModels.CategoryViewModel>()
         .Name("grid")
@@ -11,10 +33,11 @@
             columns.Bound(c => c.Description).Width(450);
             columns.Bound(c => c.Image64).ClientTemplate("<img src='data:image/jpeg;base64,#=Image64#' />").Title("Picture");
         })
-        .HtmlAttributes(new { style = "height: 380px;" })
+        .HtmlAttributes(new { style = "height: 700px;" })
         .Scrollable()
         .Groupable()
         .Sortable()
+        .ClientDetailTemplateId("detail-template")
         .Pageable(pageable => pageable
             .PageSizes(true)
             .ButtonCount(5))        
